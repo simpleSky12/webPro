@@ -1,7 +1,7 @@
-const koa = require('koa');
+import koa from 'koa'
 const app = new koa();
 
-const router = require('./routers/router');
+import router from './routers/router'
 
 app.use(router());
 
