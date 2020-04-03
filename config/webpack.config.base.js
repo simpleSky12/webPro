@@ -1,21 +1,20 @@
 const path = require('path');
+const utils = require('./utils');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
-debugger
 const webpackConfig = {
     target: 'node',
-    mode: 'development',
     entry: {
-        server: path.join(__dirname, 'src/index.js')
+        server: path.join(utils.APP_PATH, 'index.js')
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.join(__dirname, "./dist")
+        path: utils.DIST_PATH
     },
-    // 为了方便后期调试
-    devtool: 'eval-source-map',
     module: {
+        // es6语法支持
         rules: [
             {
                 test: /\.(js|jsx)$/,
@@ -29,7 +28,13 @@ const webpackConfig = {
     //  排除掉一些我们不会用到的 node 模块
     externals: [nodeExternals()],
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({
+            // 判断执行的是本地开发环境，还是线下产品环境
+            'process.env': {
+                NODE_ENV: (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') ? "'production'" : "'development'"
+            }
+        })
     ],
     node: {
         console: true,
