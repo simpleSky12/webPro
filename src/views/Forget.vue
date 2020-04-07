@@ -1,10 +1,10 @@
 <template>
-    <div>首页</div>
+  <div>找回密码</div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Forget'
 }
 </script>
 

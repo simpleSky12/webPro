@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <div class="layui-container">
+    <router-view></router-view>
+    <!--<div class="layui-container">
       <form class="layui-form layui-form-pane" action="">
-        <div class="layui-form-item" :class="{'form-group--error': $v.name.$error}">
+        <div class="layui-form-item">
           <label class="layui-form-label">用户名</label>
-          <div class="layui-input-inline">
-            <input type="text"
-                   placeholder="请输入用户名"
-                   v-model.trim="$v.name.$model"
-                   @input="setName($event.target.value)"
-                   class="layui-input">
-          </div>
-          <div class="error layui-form-mid" v-if="!$v.name.required">用户名不得为空</div>
-          <div class="error layui-form-mid" v-if="!$v.name.email">用户名输入格式错误</div>
+          <validation-provider name="用户名" rules="required|email" v-slot="{errors}">
+            <div class="layui-input-inline">
+              <input type="text"
+                     name="name"
+                     v-model.trim="name"
+                     placeholder="请输入用户名"
+                     class="layui-input">
+            </div>
+            <div class="layui-form-mid error">{{errors[0]}}</div>
+          </validation-provider>
         </div>
         <div class="layui-form-item">
           <label class="layui-form-label">密码</label>
@@ -35,17 +37,28 @@
         <button type="button" class="layui-btn">点击登陆</button>
         <a href="http://www.layui.com" class="getPassword">忘记密码？</a>
       </form>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
+/*
 import axios from 'axios'
-import { required, email } from 'vuelidate/lib/validators'
+import { ValidationProvider, extend } from 'vee-validate'
+import * as rules from 'vee-validate/dist/rules'
+import zh from 'vee-validate/dist/locale/zh_CN'
+
+for (const rule in rules) {
+  extend(rule, {
+    ...rules[rule],
+    message: zh.messages[rule]
+  })
+}
+*/
 
 export default {
-  name: 'app',
-  data () {
+  name: 'app'
+  /* data () {
     return {
       svg: '',
       name: '',
@@ -53,26 +66,13 @@ export default {
       code: ''
     }
   },
-  validations: {
-    name: {
-      required,
-      email
-    },
-    password: {
-      required
-    },
-    code: {
-      required
-    }
+  components: {
+    ValidationProvider
   },
   mounted () {
     this.getCaptcha()
   },
   methods: {
-    setName (value) {
-      this.name = value
-      this.$v.name.$touch()
-    },
     getCaptcha () {
       axios.get('http://localhost:3000/captcha').then(res => {
         if (res.status === 200) {
@@ -83,42 +83,46 @@ export default {
         }
       })
     }
-  }
+  } */
 }
 </script>
 
 <style lang="scss" scoped>
-#app{
-  background-color: #f2f2f2;
-}
-.layui-container {
-  background-color: #fff;
-}
-input {
-  width: 190px;
-}
-.code {
-  display: flex;
-  align-items: center;
-  a{
+  @import "assets/layui/css/layui.css";
+  @import "assets/css/global.css";
+  @import "assets/layui/css/modules/layer/default/layer.css";
+  /*#app {
+    background-color: #f2f2f2;
+  }
+
+  .layui-container {
+    background-color: #fff;
+  }
+
+  input {
+    width: 190px;
+  }
+
+  .code {
+    display: flex;
+    align-items: center;
+
+    a {
+      &:hover {
+        color: #42b983;
+      }
+    }
+  }
+
+  .getPassword {
+    margin-left: 10px;
+
     &:hover {
       color: #42b983;
     }
   }
-}
-.getPassword {
-  margin-left: 10px;
-  &:hover {
-    color: #42b983;
-  }
-}
-.error {
-  display: none;
-}
-.form-group--error {
+
   .error {
     color: #ff2130;
-    display: block;
-  }
-}
+  }*/
 </style>
