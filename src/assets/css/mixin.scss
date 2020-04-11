@@ -1,0 +1,21 @@
+@mixin bgImg($w:0,$h:0,$img:"",$size:contain){
+  width: $w;
+  height: $h;
+  background: url($img) no-repeat center;
+  background-size: $size;
+}
+
+@mixin abLeft($width:100vw,$height:100vh,$left:50%,$top:50%,$position:absolute,){
+  position: $position;
+  left: $left;
+  top: $top;
+  width: $width;
+  height: $height;
+}
+
+@mixin flex($direction:row,$justify:space-between,$align: center){
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
